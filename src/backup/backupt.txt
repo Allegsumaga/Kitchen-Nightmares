@@ -1,0 +1,48 @@
+newnotes
+
+
+Modele e implemente una clase del tema elegido, en la cual se contemplen cuatro atributos (revise los componentes solicitados en diseño para determinar el tipo de dato que mejor se adapte) y métodos: constructor, set’s y get’s por atributo. Este punto se cancela si utilizar como nombre clasePadre, Gastronomía o similares.
+
+ Implemente un formulario principal con una barra de menú que tendrá las opciones: Información y Nosotros. Debe utilizar los componentes correspondientes para el menú (JMenuBar, JMenu, JmenuItem), implementación de menú con botones no es válido. Para el menú Información se despliegan las opciones registrar y buscar, El  menú Nosotros despliega la opción Acerca De.
+
+ Implemente la clase Pila donde se implementan dos métodos que representan las operaciones de push y buscar. El primero de ellos para agregar la información dentro de la Pila. El segundo debe buscar mediante un atributo (el que usted determine) en la estructura dinámica indicada y regresar el objeto (con valores encontrados o vacío, según aplique).
+
+La opción registrar de menú Información debe llamar al formulario que permita capturar la información correspondiente de la clase. El formulario debe incluir diversos componentes entre cajas de texto, opciones de opción múltiple, casillas de verificación, lista desplegable o cajas de texto multilínea, barra de desplazamiento (al menos debe aplicar tres distintos). Debe incorporar evaluación a la caja de texto correspondiente a un evento KeyType, mínimo 2 (las que usted determine). Dicha información se debe almacenar en la Pila, por medio del método push.
+
+La opción  buscar de menú Información debe  solicitar mediante un cuadro de diálogo (tipo entrada) un valor (del atributo que usted determine). Con ello realizar la búsqueda dentro de la estructura, si existe mostrar la información en otro cuadro de diálogo (mensaje). En caso de no existir, un mensaje informativo al usuario.
+
+ La opción  Acerca de de menú Nosotros debe llamar a un cuadro de diálogo de tipo ConfirmDialog, con el texto "Concluyo la evaluación parcial?". Se debe mostrar el icono de pregunta y mostrar los botones Si/NO. Ante la respuesta del usuario, no se programa ninguna acción.
+
+
+
+
+
+/////////////
+
+
+
+
+Model and implement a class of the chosen theme, which includes four attributes (review the components requested in the design to determine the type of data that best suits) and methods: constructor, set's and get's per attribute. This point is canceled if you use Parent, Gastronomy or similar as the class name. [Completed]
+
+Implement a main form with a menu bar that will have the options: Information and About Us. You must use corresponding components for menu (JMenuBar, JMenu, JmenuItem), menu implementation with buttons is invalid. For the Information menu, the register and search options are displayed. The About menu displays the About option. [Completed]
+
+ Implement the Stack class where two methods representing push and fetch operations are implemented. The first of them to add the information inside the Stack. The second must search using an attribute (the one you determine) in the indicated dynamic structure and return the object (with found values ​​or empty, as applicable). [completed] 
+
+The Register option from the Information menu must call the form that allows you to capture the corresponding information of the class. The form must include various components such as text boxes, multiple choice options, check boxes, drop-down list or multi-line text boxes, scroll bar (at least three different ones must be applied). You must add evaluation to the text box corresponding to a KeyType event, at least 2 (the ones you determine). This information must be stored in the Stack, through the push method. [Completed ] 
+
+The search option in the Information menu must request a value (of the attribute you determine) through a dialog box (input type). With this, perform the search within the structure, if it exists, display the information in another dialog box (message). If it does not exist, an informative message to the user. [Completed ]
+
+The About option in the Us menu should call a dialog box of type ConfirmDialog, with the text "Have I completed the partial evaluation?". The question icon should be displayed and the Yes/NO buttons displayed. Given the user's response, no action is programmed. [Completed]
+
+
+
+
+/////////
+
+
+Attributes 
+
+String chefN; = attribute1 
+int SpecialCui;= attribute2
+boolean yearsExp; = attribute3
+double recipesNum; = attribute4

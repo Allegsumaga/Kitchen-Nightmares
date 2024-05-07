@@ -1,0 +1,235 @@
+//import javax.imageio.ImageIO;
+import javax.swing.*;
+//import java.awt.Image;
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.awt.event.*;
+//import java.io.File;
+//import java.io.IOException;
+import java.util.*;
+
+class Stack<T> {
+    public LinkedList<T> list; //changed to public 
+
+    public Stack() {
+        list = new LinkedList<>();
+    }
+
+    public void push(T item) {
+        list.push(item);
+    }
+
+    public T fetch(T key) {
+        Iterator<T> iterator = list.iterator();
+        while (iterator.hasNext()) {
+            T item = iterator.next();
+            if (item.equals(key)) {
+                return item;
+            }
+        }
+        return null;
+    }
+}
+
+class MyClass {
+    private String chefN;
+    private int SpecialCui;
+    private boolean yearsExp;
+    private double recipesNum;
+
+    public MyClass(String chefN, int SpecialCui, boolean yearsExp, double recipesNum) {
+        this.chefN = chefN;
+        this.SpecialCui = SpecialCui;
+        this.yearsExp = yearsExp;
+        this.recipesNum = recipesNum;
+    }
+
+    public String getchefN() {
+        return chefN;
+    }
+
+    public void setchefN(String chefN) {
+        this.chefN = chefN;
+    }
+
+    public int getSpecialCui() {
+        return SpecialCui;
+    }
+
+    public void setSpecialCui(int SpecialCui) {
+        this.SpecialCui = SpecialCui;
+    }
+
+    public boolean isyearsExp() {
+        return yearsExp;
+    }
+
+    public void setyearsExp(boolean yearsExp) {
+        this.yearsExp = yearsExp;
+    }
+
+    public double getrecipesNum() {
+        return recipesNum;
+    }
+
+    public void setrecipesNum(double recipesNum) {
+        this.recipesNum = recipesNum;
+    }
+}
+
+public class Main {
+    static Stack<MyClass> chefStack = new Stack<>();
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Master Chef World");
+        JMenuBar menuBar = new JMenuBar();
+
+        //Load the background 
+        try {
+            ImageIcon backgroundImageIcon = new ImageIcon(Main.class.getResource("/images/DGR.jpeg"));
+            JLabel backgroundLabel = new JLabel(backgroundImageIcon);
+            frame.setContentPane(backgroundLabel);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+        JMenu informationMenu = new JMenu("Information");
+        JMenuItem registerItem = new JMenuItem("Register");
+        JMenuItem searchItem = new JMenuItem("Search");
+        informationMenu.add(registerItem);
+        informationMenu.add(searchItem);
+
+        JMenu aboutMenu = new JMenu("About Us");
+        JMenuItem aboutItem = new JMenuItem("About");
+        aboutMenu.add(aboutItem);
+
+        JMenuItem quitItem = new JMenuItem("Quit");
+
+        menuBar.add(informationMenu);
+        menuBar.add(aboutMenu);
+        menuBar.add(quitItem);
+
+        quitItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                System.exit(0);
+            }
+        });
+
+        registerItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Open form for registering information
+                JFrame registerFrame = new JFrame("Register Form");
+                registerFrame.setLocationRelativeTo(null);
+                JPanel panel = new JPanel(new GridLayout(5, 2)); // Panel to hold form components
+
+                // Add text fields for input
+                JTextField chefNameField = new JTextField();
+                panel.add(new JLabel("Chef's Name:"));
+                panel.add(chefNameField);
+        
+                JTextField cuisineField = new JTextField();
+                panel.add(new JLabel("Specialty Cuisine:"));
+                panel.add(cuisineField);
+        
+                JCheckBox experienceCheckBox = new JCheckBox("Years of Experience:");
+                panel.add(experienceCheckBox);
+        
+                JTextField experienceField = new JTextField();
+                panel.add(new JLabel("Years of Experience:"));
+                panel.add(experienceField);
+        
+                JTextField recipesField = new JTextField();
+                panel.add(new JLabel("Number of Recipes Created:"));
+                panel.add(recipesField);
+        
+                // Add panel to frame
+                registerFrame.add(panel);
+        
+                // Add button to push information onto the stack
+                JButton registerButton = new JButton("Register");
+                registerButton.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        // Get input values from text fields
+                        String chefName = chefNameField.getText();
+                        String cuisine = cuisineField.getText();
+                        boolean experience = experienceCheckBox.isSelected();
+                        int yearsExp = 0;
+                        if (experience) {
+                            // Parse years of experience from text field
+                            yearsExp = Integer.parseInt(experienceField.getText());
+                        }
+                        double recipesNum = Double.parseDouble(recipesField.getText());
+        
+                        // Create an instance of MyClass with input values
+                        MyClass chefInfo = new MyClass(chefName, yearsExp, experience, recipesNum);
+        
+                        // Push the information onto the stack
+                        chefStack.push(chefInfo);
+        
+                        // Close the register frame
+                        registerFrame.dispose();
+                    }
+                });
+                panel.add(registerButton);
+        
+                // Set frame properties and make it visible
+                registerFrame.pack();
+                registerFrame.setLocationRelativeTo(null); // Center the frame on screen
+                registerFrame.setVisible(true);
+            }
+        });
+        
+        searchItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Prompt user for value to search
+                String searchKey = JOptionPane.showInputDialog(null, "Enter chef's name to search:");
+        
+                boolean found = false;
+                MyClass foundChef = null;
+        
+                // Perform search in the stack
+                Iterator<MyClass> iterator = chefStack.list.iterator();
+                while (iterator.hasNext()) {
+                    MyClass chef = iterator.next();
+                    if (chef.getchefN().equalsIgnoreCase(searchKey)) {
+                        found = true;
+                        foundChef = chef;
+                        break;
+                    }
+                }
+        
+                // If found, display information in dialog box
+                if (found) {
+                    JOptionPane.showMessageDialog(null, "Chef Found!\nName: " + foundChef.getchefN() +
+                            "\nYears: " + foundChef.getSpecialCui() +
+                            "\nYears of Experience: " + (foundChef.isyearsExp() ? "Yes" : "No") +
+                            "\nNumber of Recipes Created: " + foundChef.getrecipesNum());
+                } else {
+                    // If not found, show informative message to user
+                    JOptionPane.showMessageDialog(null, "Chef with the name '" + searchKey + "' not found.", "Chef Not Found", JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+        });
+        
+
+        aboutItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Display confirmation dialog
+                int result = JOptionPane.showConfirmDialog(null, "Have I completed the partial evaluation?", "About Us", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                //Check user response 
+                if (result == JOptionPane.YES_OPTION){
+                    JOptionPane.showMessageDialog(null, "Cheers! you've successfully completed this");
+                }
+                // No action needed 
+            }
+        });
+
+        frame.setJMenuBar(menuBar);
+        frame.setSize(500, 350);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLayout(new BorderLayout()); //Added 
+        frame.setVisible(true);
+        frame.setLocationRelativeTo(null);
+    }
+}
+
+
