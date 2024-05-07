@@ -1,39 +1,236 @@
-newnotes
+//import javax.imageio.ImageIO;
+import javax.swing.*;
+//import java.awt.Image;
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.awt.event.*;
+//import java.io.File;
+//import java.io.IOException;
+import java.util.*;
 
+class Stack<T> {
+    public LinkedList<T> list; //changed to public 
 
-Modele e implemente una clase del tema elegido, en la cual se contemplen cuatro atributos (revise los componentes solicitados en diseño para determinar el tipo de dato que mejor se adapte) y métodos: constructor, set’s y get’s por atributo. Este punto se cancela si utilizar como nombre clasePadre, Gastronomía o similares.
+    public Stack() {
+        list = new LinkedList<>();
+    }
 
- Implemente un formulario principal con una barra de menú que tendrá las opciones: Información y Nosotros. Debe utilizar los componentes correspondientes para el menú (JMenuBar, JMenu, JmenuItem), implementación de menú con botones no es válido. Para el menú Información se despliegan las opciones registrar y buscar, El  menú Nosotros despliega la opción Acerca De.
+    public void push(T item) {
+        list.push(item);
+    }
 
- Implemente la clase Pila donde se implementan dos métodos que representan las operaciones de push y buscar. El primero de ellos para agregar la información dentro de la Pila. El segundo debe buscar mediante un atributo (el que usted determine) en la estructura dinámica indicada y regresar el objeto (con valores encontrados o vacío, según aplique).
+    public T fetch(T key) {
+        Iterator<T> iterator = list.iterator();
+        while (iterator.hasNext()) {
+            T item = iterator.next();
+            if (item.equals(key)) {
+                return item;
+            }
+        }
+        return null;
+    }
+}
 
-La opción registrar de menú Información debe llamar al formulario que permita capturar la información correspondiente de la clase. El formulario debe incluir diversos componentes entre cajas de texto, opciones de opción múltiple, casillas de verificación, lista desplegable o cajas de texto multilínea, barra de desplazamiento (al menos debe aplicar tres distintos). Debe incorporar evaluación a la caja de texto correspondiente a un evento KeyType, mínimo 2 (las que usted determine). Dicha información se debe almacenar en la Pila, por medio del método push.
+class MyClass {
+    private String chefN;
+    private int SpecialCui;
+    private boolean yearsExp;
+    private double recipesNum;
 
-La opción  buscar de menú Información debe  solicitar mediante un cuadro de diálogo (tipo entrada) un valor (del atributo que usted determine). Con ello realizar la búsqueda dentro de la estructura, si existe mostrar la información en otro cuadro de diálogo (mensaje). En caso de no existir, un mensaje informativo al usuario.
+    public MyClass(String chefN, int SpecialCui, boolean yearsExp, double recipesNum) {
+        this.chefN = chefN;
+        this.SpecialCui = SpecialCui;
+        this.yearsExp = yearsExp;
+        this.recipesNum = recipesNum;
+    }
 
- La opción  Acerca de de menú Nosotros debe llamar a un cuadro de diálogo de tipo ConfirmDialog, con el texto "Concluyo la evaluación parcial?". Se debe mostrar el icono de pregunta y mostrar los botones Si/NO. Ante la respuesta del usuario, no se programa ninguna acción.
+    public String getchefN() {
+        return chefN;
+    }
 
+    public void setchefN(String chefN) {
+        this.chefN = chefN;
+    }
 
+    public int getSpecialCui() {
+        return SpecialCui;
+    }
 
+    public void setSpecialCui(int SpecialCui) {
+        this.SpecialCui = SpecialCui;
+    }
 
+    public boolean isyearsExp() {
+        return yearsExp;
+    }
 
-/////////////
+    public void setyearsExp(boolean yearsExp) {
+        this.yearsExp = yearsExp;
+    }
 
+    public double getrecipesNum() {
+        return recipesNum;
+    }
 
+    public void setrecipesNum(double recipesNum) {
+        this.recipesNum = recipesNum;
+    }
+}
 
+public class Main {
+    static Stack<MyClass> chefStack = new Stack<>();
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Master Chef World");
+        JMenuBar menuBar = new JMenuBar();
 
-Model and implement a class of the chosen theme, which includes four attributes (review the components requested in the design to determine the type of data that best suits) and methods: constructor, set's and get's per attribute. This point is canceled if you use Parent, Gastronomy or similar as the class name. [Completed]
+        //Load the background 
+        try {
+            ImageIcon backgroundImageIcon = new ImageIcon(Main.class.getResource("/images/DGR.jpeg"));
+            JLabel backgroundLabel = new JLabel(backgroundImageIcon);
+            frame.setContentPane(backgroundLabel);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
 
-Implement a main form with a menu bar that will have the options: Information and About Us. You must use corresponding components for menu (JMenuBar, JMenu, JmenuItem), menu implementation with buttons is invalid. For the Information menu, the register and search options are displayed. The About menu displays the About option. [Completed]
+        JMenu informationMenu = new JMenu("Information");
+        JMenuItem registerItem = new JMenuItem("Register");
+        JMenuItem searchItem = new JMenuItem("Search");
+        informationMenu.add(registerItem);
+        informationMenu.add(searchItem);
 
- Implement the Stack class where two methods representing push and fetch operations are implemented. The first of them to add the information inside the Stack. The second must search using an attribute (the one you determine) in the indicated dynamic structure and return the object (with found values ​​or empty, as applicable). [completed] 
+        JMenu aboutMenu = new JMenu("About Us");
+        JMenuItem aboutItem = new JMenuItem("About");
+        aboutMenu.add(aboutItem);
 
-The Register option from the Information menu must call the form that allows you to capture the corresponding information of the class. The form must include various components such as text boxes, multiple choice options, check boxes, drop-down list or multi-line text boxes, scroll bar (at least three different ones must be applied). You must add evaluation to the text box corresponding to a KeyType event, at least 2 (the ones you determine). This information must be stored in the Stack, through the push method. [Completed ] 
+        JMenuItem quitItem = new JMenuItem("Quit");
 
-The search option in the Information menu must request a value (of the attribute you determine) through a dialog box (input type). With this, perform the search within the structure, if it exists, display the information in another dialog box (message). If it does not exist, an informative message to the user. [Completed ]
+        menuBar.add(informationMenu);
+        menuBar.add(aboutMenu);
+        menuBar.add(quitItem);
 
-The About option in the Us menu should call a dialog box of type ConfirmDialog, with the text "Have I completed the partial evaluation?". The question icon should be displayed and the Yes/NO buttons displayed. Given the user's response, no action is programmed. [Completed]
+        quitItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                System.exit(0);
+            }
+        });
 
+        registerItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Open form for registering information
+                JFrame registerFrame = new JFrame("Register Form");
+                registerFrame.setLocationRelativeTo(null);
+                JPanel panel = new JPanel(new GridLayout(5, 2)); // Panel to hold form components
+
+                // Add text fields for input
+                JTextField chefNameField = new JTextField();
+                panel.add(new JLabel("Chef's Name:"));
+                panel.add(chefNameField);
+        
+                JTextField cuisineField = new JTextField();
+                panel.add(new JLabel("Specialty Cuisine:"));
+                panel.add(cuisineField);
+        
+                JCheckBox experienceCheckBox = new JCheckBox("Years of Experience:");
+                panel.add(experienceCheckBox);
+        
+                JTextField experienceField = new JTextField();
+                panel.add(new JLabel("Years of Experience:"));
+                panel.add(experienceField);
+        
+                JTextField recipesField = new JTextField();
+                panel.add(new JLabel("Number of Recipes Created:"));
+                panel.add(recipesField);
+        
+                // Add panel to frame
+                registerFrame.add(panel);
+        
+                // Add button to push information onto the stack
+                JButton registerButton = new JButton("Register");
+                registerButton.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        // Get input values from text fields
+                        String chefName = chefNameField.getText();
+                        String cuisine = cuisineField.getText();
+                        boolean experience = experienceCheckBox.isSelected();
+                        int yearsExp = 0;
+                        if (experience) {
+                            // Parse years of experience from text field
+                            yearsExp = Integer.parseInt(experienceField.getText());
+                        }
+                        double recipesNum = Double.parseDouble(recipesField.getText());
+        
+                        // Create an instance of MyClass with input values
+                        MyClass chefInfo = new MyClass(chefName, yearsExp, experience, recipesNum);
+        
+                        // Push the information onto the stack
+                        chefStack.push(chefInfo);
+        
+                        // Close the register frame
+                        registerFrame.dispose();
+                    }
+                });
+                panel.add(registerButton);
+        
+                // Set frame properties and make it visible
+                registerFrame.pack();
+                registerFrame.setLocationRelativeTo(null); // Center the frame on screen
+                registerFrame.setVisible(true);
+            }
+        });
+        
+        searchItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Prompt user for value to search
+                String searchKey = JOptionPane.showInputDialog(null, "Enter chef's name to search:");
+        
+                boolean found = false;
+                MyClass foundChef = null;
+        
+                // Perform search in the stack
+                Iterator<MyClass> iterator = chefStack.list.iterator();
+                while (iterator.hasNext()) {
+                    MyClass chef = iterator.next();
+                    if (chef.getchefN().equalsIgnoreCase(searchKey)) {
+                        found = true;
+                        foundChef = chef;
+                        break;
+                    }
+                }
+        
+                // If found, display information in dialog box
+                if (found) {
+                    JOptionPane.showMessageDialog(null, "Chef Found!\nName: " + foundChef.getchefN() +
+                            "\nYears: " + foundChef.getSpecialCui() +
+                            "\nYears of Experience: " + (foundChef.isyearsExp() ? "Yes" : "No") +
+                            "\nNumber of Recipes Created: " + foundChef.getrecipesNum());
+                } else {
+                    // If not found, show informative message to user
+                    JOptionPane.showMessageDialog(null, "Chef with the name '" + searchKey + "' not found.", "Chef Not Found", JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+        });
+        
+
+        aboutItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Display confirmation dialog
+                int result = JOptionPane.showConfirmDialog(null, "Have I completed the partial evaluation?", "About Us", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                //Check user response 
+                if (result == JOptionPane.YES_OPTION){
+                    JOptionPane.showMessageDialog(null, "Cheers! you've successfully completed this");
+                }
+                // No action needed 
+            }
+        });
+
+        frame.setJMenuBar(menuBar);
+        frame.setSize(500, 350);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLayout(new BorderLayout()); //Added 
+        frame.setVisible(true);
+        frame.setLocationRelativeTo(null);
+    }
+}
 
 
 
